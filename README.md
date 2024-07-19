@@ -33,6 +33,36 @@ KindnessCafe.com is a platform similar to Buy Me a Coffee, where users can suppo
    - View supporters and followers.
    - Payment box with options to donate $5, $15, or $25, with a message.
 
+
+## Screenshots
+
+![KindnessCafe Screenshot](https://github.com/VineshRajkumar/KindnessCafe.com/blob/940192b36ca9d4ba4e169039626c09bed89d2768/1.png)
+
+![KindnessCafe Screenshot](https://github.com/VineshRajkumar/KindnessCafe.com/blob/940192b36ca9d4ba4e169039626c09bed89d2768/2.png)
+
+![KindnessCafe Screenshot](https://github.com/VineshRajkumar/KindnessCafe.com/blob/940192b36ca9d4ba4e169039626c09bed89d2768/3.png)
+
+![KindnessCafe Screenshot](https://github.com/VineshRajkumar/KindnessCafe.com/blob/940192b36ca9d4ba4e169039626c09bed89d2768/4.png)
+
+![KindnessCafe Screenshot](https://github.com/VineshRajkumar/KindnessCafe.com/blob/940192b36ca9d4ba4e169039626c09bed89d2768/5.png)
+
+![KindnessCafe Screenshot](https://github.com/VineshRajkumar/KindnessCafe.com/blob/940192b36ca9d4ba4e169039626c09bed89d2768/6.png)
+
+![KindnessCafe Screenshot](https://github.com/VineshRajkumar/KindnessCafe.com/blob/940192b36ca9d4ba4e169039626c09bed89d2768/7.png)
+
+![KindnessCafe Screenshot](https://github.com/VineshRajkumar/KindnessCafe.com/blob/940192b36ca9d4ba4e169039626c09bed89d2768/8.png)
+
+![KindnessCafe Screenshot](https://github.com/VineshRajkumar/KindnessCafe.com/blob/940192b36ca9d4ba4e169039626c09bed89d2768/9.png)
+
+![KindnessCafe Screenshot](https://github.com/VineshRajkumar/KindnessCafe.com/blob/940192b36ca9d4ba4e169039626c09bed89d2768/10.png)
+
+![KindnessCafe Screenshot](https://github.com/VineshRajkumar/KindnessCafe.com/blob/940192b36ca9d4ba4e169039626c09bed89d2768/11.png)
+
+![KindnessCafe Screenshot](https://github.com/VineshRajkumar/KindnessCafe.com/blob/940192b36ca9d4ba4e169039626c09bed89d2768/12.png)
+
+![KindnessCafe Screenshot](https://github.com/VineshRajkumar/KindnessCafe.com/blob/940192b36ca9d4ba4e169039626c09bed89d2768/13.png)
+
+
 ## Technology Stack
 
 - **Next.js**: Framework used for building the application.
