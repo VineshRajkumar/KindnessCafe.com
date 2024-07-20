@@ -2,32 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
+/* global.css or body.css */
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+    height: 100vh; /* Full viewport height */
+    width: 100vw; /* Full viewport width */
+    background-color: white; /* Fallback color */
+    background: radial-gradient(60% 120% at 50% 50%, hsla(0, 0%, 100%, 0) 0%, rgba(252, 205, 238, 0.5) 100%);
+    background-size: cover; /* Ensure the background covers the entire body */
+    margin: 0; /* Remove default margin for body */
+    overflow-x: hidden;
+    overflow-y: visible;
 }
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+.background-image {
+    background-image: url('/9.avif');
+    background-size: cover;
+    background-position: center;
+    
   }
-}
+  /* globals.css */
+.hide-scrollbar {
+    overflow-x: hidden;
+  }
+  
+  /* For specific browsers */
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none; /* Safari and Chrome */
+  }
+  
