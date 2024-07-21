@@ -9,7 +9,7 @@ const poppins = Poppins({ weight: "400", subsets: ["latin"] });
 import { useSession, signIn, signOut } from "next-auth/react"; //<--
 import { useRouter, usePathname } from "next/navigation";
 
-const page = () => {
+const Page = () => {
   const [form, setForm] = useState({  About: "", Websiteurl: "" });
   const [detailsArray, setDetailsArray] = useState([]);
   const pathname = usePathname();
@@ -255,4 +255,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

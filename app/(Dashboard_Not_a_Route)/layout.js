@@ -19,7 +19,7 @@ export default function RootLayout({ children }) {
           
           <div className="min-h-screen">{children}</div>
         </SessionWrapper>{" "}
-        <script src="https://cdn.lordicon.com/lordicon.js"></script>
+        <script src="https://cdn.lordicon.com/lordicon.js" async></script>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
         {/* <-- */}
       </body>

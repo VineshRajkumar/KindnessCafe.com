@@ -210,7 +210,7 @@ export default function Home() {
           </section>
         </div>
         <div className="h-screen bg-green-950 text-white flex flex-col py-24 px-8 md:py-36 md:px-24 lg:py-48 lg:px-48 font-semibold text-2xl md:text-3xl lg:text-4xl">
-          <div className="pb-8 ">You're in Good Hands!!</div>
+          <div className="pb-8 ">You&apos;re in Good Hands!!</div>
           <div className="leading-relaxed">
             KindnessCafe is a trusted leader in online support for creators.
             With{" "}

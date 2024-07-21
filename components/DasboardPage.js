@@ -300,7 +300,7 @@ const DasboardPage = ({ username }) => {
                               ></lord-icon>
                             </div>
                             <h1 className="font-bold text-xl mb-2 flex justify-center items-center max-[392px]:text-lg max-[360px]:text-[15px]">
-                              You don't have any supporters yet
+                              You don&apos;t have any supporters yet
                             </h1>
                             <p className="flex justify-center text-[15.9px] items-center max-[445px]:text-sm max-[397px]:text-xs max-[360px]:text-[10px] ">
                               Share your page with your audience to get started.
