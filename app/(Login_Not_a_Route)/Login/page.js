@@ -1,30 +1,26 @@
-"use client"; // Client-side component
-
-import React, { useEffect } from "react";
+"use client"; // Client (Page)
+import React, { useState } from "react";
 import { Pacifico } from "next/font/google";
 import { useSession, signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 const pacifico = Pacifico({ weight: "400", subsets: ["latin"] });
 
-const Page = () => {
-  const { data: session, status } = useSession();
+const page = () => {
+  const { data: session,status } = useSession();
+  
   const router = useRouter();
 
-  useEffect(() => {
-    if (status === "loading") return; // Wait for loading to complete
-
-    if (session) {
-      router.push('/Logged_In');
-    }
-  }, [session, status, router]);
+  if (session) {
+    router.push('/Logged_In');
+  }
 
   if (status === "loading") {
     return (
-      <div role="status" className="flex flex-row items-center justify-center h-screen">
+      <div role="status  " className="flex flex-row items-center justify-center h-screen ">
         <svg
           aria-hidden="true"
-          className="inline w-8 h-8 text-black animate-spin fill-pink-500"
+          className="inline w-8 h-8 text-black animate-spin  fill-pink-500"
           viewBox="0 0 100 101"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -39,20 +35,20 @@ const Page = () => {
           />
         </svg>
         <span className="sr-only">Loading...</span>
-        <p className="text-2xl font-semibold ml-3">Loading...</p>
+        <p className="text-2xl font-semibold ml-3 ">Loading...</p>
       </div>
     );
   }
 
   return (
     <div
-      className="relative flex items-center justify-center h-screen w-screen bg-cover bg-center"
+      className="relative flex items-center justify-center h-screen w-screen dark:bg-gray-900 bg-cover bg-center"
       style={{ backgroundImage: "url('/9.avif')" }}
     >
       <div className="grid gap-8">
         <div id="back-div" className="bg-gradient-to-r rounded-[20px] m-4">
           <div className="border-[20px] border-transparent rounded-[20px] bg-white shadow-lg xl:p-10 2xl:p-10 lg:p-10 md:p-10 sm:p-2 m-2">
-            <h1 className="pt-8 pb-6 font-bold text-black text-5xl text-center cursor-default max-[349px]:text-4xl">
+            <h1 className="pt-8 pb-6 font-bold text-black text-5xl text-center cursor-default max-[349px]:text-4xl ">
               Welcome !!
             </h1>
             <form method="POST" className="space-y-4">
@@ -66,6 +62,7 @@ const Page = () => {
                   type="email"
                   placeholder="Email"
                   required
+                  
                 />
               </div>
               <button
@@ -86,26 +83,21 @@ const Page = () => {
               </h3>
             </div>
             <div id="third-party-auth" className="flex items-center justify-center mt-5 flex-wrap">
-              <button
-                className="hover:scale-105 ease-in-out duration-300 shadow-lg p-2 rounded-lg m-1"
-                onClick={() => signIn('google')}
-              >
+              <button className="hover:scale-105 ease-in-out duration-300 shadow-lg p-2 rounded-lg m-1" onClick={() => signIn('google')}>
                 <img
                   className="max-w-[25px]"
                   src="https://ucarecdn.com/8f25a2ba-bdcf-4ff1-b596-088f330416ef/"
                   alt="Google"
                 />
               </button>
-              <button
-                className="hover:scale-105 ease-in-out duration-300 shadow-lg p-2 rounded-lg m-1"
-                onClick={() => signIn('github')}
-              >
+              <button className="hover:scale-105 ease-in-out duration-300 shadow-lg p-2 rounded-lg m-1" onClick={() => signIn('github')}>
                 <img
                   className="max-w-[25px] filter"
                   src="https://ucarecdn.com/be5b0ffd-85e8-4639-83a6-5162dfa15a16/"
                   alt="Github"
                 />
               </button>
+              
             </div>
             <div className="text-gray-500 flex text-center flex-col mt-4 items-center text-sm">
               <p className="cursor-default">
@@ -130,5 +122,4 @@ const Page = () => {
   );
 };
 
-export default Page;
-
+export default page;

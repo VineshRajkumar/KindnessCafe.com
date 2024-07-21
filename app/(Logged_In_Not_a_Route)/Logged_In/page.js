@@ -1,17 +1,16 @@
-"use client";
-
+"use client"; //<--
+//NOTE- those with <-- symbol are NextAuth authentication
 import React, { useState, useEffect } from "react";
 import { Pacifico } from "next/font/google";
 import Image from "next/image";
 import { Poppins } from "next/font/google";
-import { useSession, signOut } from "next-auth/react";
-import { useRouter, usePathname } from "next/navigation";
-
 const pacifico = Pacifico({ weight: "400", subsets: ["latin"] });
 const poppins = Poppins({ weight: "400", subsets: ["latin"] });
+import { useSession, signIn, signOut } from "next-auth/react"; //<--
+import { useRouter, usePathname } from "next/navigation";
 
-const Page = () => {
-  const [form, setForm] = useState({ About: "", Websiteurl: "" });
+const page = () => {
+  const [form, setForm] = useState({  About: "", Websiteurl: "" });
   const [detailsArray, setDetailsArray] = useState([]);
   const pathname = usePathname();
   const { data: session, status } = useSession();
@@ -25,62 +24,79 @@ const Page = () => {
     }
   }, []);
 
+  
   const handleSavingFormToLocalStorage = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const saveDetailsOnClick = () => {
-    if (form.About.length >= 1 && form.Websiteurl.length >= 3) {
+  const SaveDetailsOnClick = () => {
+    //form.Name.length >= 1 &&
+    if (
+      
+      form.About.length >= 1 &&
+      form.Websiteurl.length >= 3
+    ) {
       const newFormArray = [...detailsArray, form];
       setDetailsArray(newFormArray);
       localStorage.setItem("data", JSON.stringify(newFormArray));
-      setForm({ About: "", Websiteurl: "" });
+      console.log("Done");
+      setForm({  About: "", Websiteurl: "" });
     }
+    
   };
 
   const handleClickNext = () => {
     setNextClick(true);
-    if (form.About.length >= 1 && form.Websiteurl.length >= 3) {
+    //&& form.Imgurl
+    //form.Name.length >= 1 &&
+    if ( form.About.length >= 1 && form.Websiteurl.length >= 3 ) {
       router.push("/PaymentDetails");
-    } else if (form.Websiteurl.length < 3) {
+    }
+    else if(form.Websiteurl.length < 3){
       alert("Website Link is Required");
-    } else {
+    }
+    else {
       alert("Please fill out all required fields.");
     }
   };
+  
+  useEffect(() => {
+    if (pathname === "/Logged_In") {
+      // router.forward(); //will prevent from coming back from Dashboard
+    }
+  }, [pathname]);
 
   useEffect(() => {
     if (status === "unauthenticated") {
       router.push("/");
     }
-  }, [status, router]);
+  }, [status]);
 
   const [imgSrc, setImgSrc] = useState(
     "https://png.pngtree.com/png-clipart/20191122/original/pngtree-user-icon-isolated-on-abstract-background-png-image_5192004.jpg"
   );
 
-  const handleImageChange = (e) => {
+  const handleshowingimage = (e) => {
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
-      reader.onload = (event) => {
-        setImgSrc(event.target.result);
-      };
       reader.readAsDataURL(file);
+      reader.onload = (e) => {
+        setImgSrc(e.target.result);
+      };
     }
   };
-
   const handleCombinedChange = (e) => {
     handleSavingFormToLocalStorage(e);
-    handleImageChange(e);
+    handleshowingimage(e);
   };
 
   if (status === "loading") {
     return (
-      <div role="status" className="flex flex-row items-center justify-center h-screen">
+      <div role="status  " className="flex flex-row items-center justify-center h-screen ">
         <svg
           aria-hidden="true"
-          className="inline w-8 h-8 text-black animate-spin fill-pink-500"
+          className="inline w-8 h-8 text-black animate-spin  fill-pink-500"
           viewBox="0 0 100 101"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -95,11 +111,10 @@ const Page = () => {
           />
         </svg>
         <span className="sr-only">Loading...</span>
-        <p className="text-2xl font-semibold ml-3">Loading...</p>
+        <p className="text-2xl font-semibold ml-3 ">Loading...</p>
       </div>
     );
   }
-
   return (
     <div>
       <div className="flex items-center justify-between">
@@ -107,8 +122,15 @@ const Page = () => {
           href="/Logged_In"
           className="flex title-font font-medium items-center md:justify-start justify-center text-gray-900 cursor-pointer p-3"
         >
-          <Image src="/kC.png" alt="Kindness Cafe Logo" width={70} height={70} />
-          <span className={`ml-3 text-xl ${pacifico.className} cursor-pointer max-[425px]:hidden`}>
+          <Image
+            src="/kC.png"
+            alt="Kindness Cafe Logo"
+            width={70}
+            height={70}
+          />
+          <span
+            className={`ml-3 text-xl ${pacifico.className} cursor-pointer max-[425px]:hidden`}
+          >
             KindnessCafe.com
           </span>
         </a>
@@ -125,91 +147,112 @@ const Page = () => {
       <div className="flex justify-center items-center text-3xl font-semibold">
         Complete your page
       </div>
-      <div className="flex flex-row justify-center space-x-16 space-y-24 max-[537px]:space-y-12 max-[537px]:flex max-[537px]:flex-col">
+      <div className="flex flex-row justify-center space-x-16 space-y-24 max-[537px]:space-y-12 max-[537px]:flex max-[537px]:flex-col ">
+        {/* <div className="flex mt-20 max-[537px]:mt-8 max-[537px]:mb-48 ">
+          <div className="mx-auto w-64 text-center ">
+            <div className="relative w-64">
+              {imgSrc && (
+                <img
+                  className="w-64 h-64 rounded-full absolute"
+                  src={imgSrc}
+                  alt=""
+                />
+              )}
+
+              <div className="w-64 h-64 group hover:bg-gray-200 opacity-60 rounded-full absolute flex justify-center items-center cursor-pointer transition duration-500">
+                <input
+                  type="file"
+                  id="upload_profile"
+                  value={form.Imgurl}
+                  name="Imgurl"
+                  onChange={handleCombinedChange}
+                  hidden
+                  required
+                  // onChange={handleshowingimage}
+                />
+
+                <label htmlFor="upload_profile">
+                  <img
+                    className="hidden group-hover:block w-12"
+                    src="https://www.svgrepo.com/show/33565/upload.svg"
+                    alt=""
+                  />
+                </label>
+              </div>
+            </div>
+          </div>
+        </div> */}
         <div className="flex mt-10 max-[537px]:pt-5 max-[537px]:flex max-[537px]:justify-center">
           <form className="max-w-sm mx-auto">
             <div className="mb-5">
-              <label htmlFor="small-input" className="block mb-1 text-sm font-medium text-black">
+              <label
+                htmlFor="small-input"
+                className="block mb-1 text-sm font-medium text-black "
+              >
                 Name
               </label>
               <input
                 type="text"
                 id="small-input"
+                // value={form.Name}
+                // name="Name"
+                // onChange={handleSavingFormToLocalStorage}
+                // required
+                // placeholder="Enter your Name"
                 disabled={true}
-                placeholder={session?.user?.email.split("@")[0] || "User"}
-                className="block w-full p-2 text-gray-900 placeholder:text-black border border-gray-300 rounded-lg bg-gray-100 text-xs focus:bg-blue-100 font-semibold placeholder:font-normal"
+                placeholder={session.user.email.split("@")[0]}
+                className="block w-full p-2 text-gray-900  placeholder:text-black border border-gray-300 rounded-lg bg-gray-100 text-xs focus:bg-blue-100 font-semibold placeholder:font-normal"
               />
             </div>
             <div className="mb-5">
-              <label htmlFor="large-input" className="block mb-1 text-sm font-medium text-black">
+              <label
+                htmlFor="large-input"
+                className="block mb-1 text-sm font-medium text-black"
+              >
                 About
               </label>
               <input
                 type="text"
                 id="large-input"
                 value={form.About}
-                onChange={handleSavingFormToLocalStorage}
                 name="About"
-                placeholder="About"
-                className="block w-full p-2 text-gray-900 placeholder:text-black border border-gray-300 rounded-lg bg-gray-100 text-xs focus:bg-blue-100 font-semibold placeholder:font-normal"
+                onChange={handleSavingFormToLocalStorage}
+                required
+                placeholder="Tell us about yourself"
+                className="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-100 text-xs focus:bg-blue-100 font-semibold placeholder:font-normal"
               />
             </div>
-            <div className="mb-5">
-              <label htmlFor="website-input" className="block mb-1 text-sm font-medium text-black">
-                Website URL
+            <div>
+              <label
+                htmlFor="base-input"
+                className="block mb-2 text-sm font-medium text-black"
+              >
+                Website or Social Link
               </label>
               <input
                 type="text"
-                id="website-input"
+                id="base-input"
                 value={form.Websiteurl}
-                onChange={handleSavingFormToLocalStorage}
                 name="Websiteurl"
-                placeholder="Website URL"
-                className="block w-full p-2 text-gray-900 placeholder:text-black border border-gray-300 rounded-lg bg-gray-100 text-xs focus:bg-blue-100 font-semibold placeholder:font-normal"
+                onChange={handleSavingFormToLocalStorage}
+                required
+                placeholder="https://exampleurl.com"
+                className="block w-full p-2.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-100 text-xs focus:bg-blue-100 font-semibold placeholder:font-normal"
               />
-            </div>
-            <div className="flex justify-center mb-5">
-              <input
-                type="file"
-                id="image-input"
-                accept="image/*"
-                onChange={handleCombinedChange}
-                className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-100 file:text-blue-900 hover:file:bg-blue-200"
-              />
-            </div>
-            <div className="flex justify-center mb-5">
-              <button
-                type="button"
-                onClick={saveDetailsOnClick}
-                className="text-black bg-pink-100 border focus:outline-none hover:bg-pink-50 focus:ring-1 focus:ring-black font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
-              >
-                Save
-              </button>
             </div>
           </form>
         </div>
-        <div className="flex justify-center max-[537px]:pt-5">
-          <Image
-            src={imgSrc}
-            alt="Profile Image"
-            width={300}
-            height={300}
-            className="rounded-full border-2 border-gray-300"
-          />
-        </div>
       </div>
-      <div className="flex justify-center mb-10">
-        <button
-          type="button"
-          onClick={handleClickNext}
-          className="text-white bg-pink-500 border border-black focus:outline-none hover:bg-pink-600 focus:ring-1 focus:ring-black font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
+      <div className="flex justify-center items-center my-12">
+        <div
+          className={`${poppins.className} text-base bg-[#FFD1DC] px-5 py-2 rounded-3xl cursor-pointer hover:px-6 hover:py-3 transition-all duration-300 hover:-mx-1 hover:-my-1 hover:bg-[#feb2c4] max-[500px]:hover:px-6 max-[500px]:hover:py-3`}
+          onClick={()=>{handleClickNext();SaveDetailsOnClick()}}
         >
           Next
-        </button>
+        </div>
       </div>
     </div>
   );
 };
 
-export default Page;
-
+export default page;
