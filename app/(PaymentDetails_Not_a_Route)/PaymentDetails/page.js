@@ -1,18 +1,18 @@
-"use client"; //<--
-// NOTE: those with <-- symbol are NextAuth authentication
+"use client";
+
 import React, { useState, useEffect } from "react";
 import { Pacifico } from "next/font/google";
 import Image from "next/image";
 import { Poppins } from "next/font/google";
-const pacifico = Pacifico({ weight: "400", subsets: ["latin"] });
-const poppins = Poppins({ weight: "400", subsets: ["latin"] });
-import { useSession, signIn, signOut } from "next-auth/react"; //<--
+import { useSession } from "next-auth/react";
 import { useRouter, usePathname } from "next/navigation";
 
-import { razorpayId } from "@/actions/useractions";
-import { razorpaySecret } from "@/actions/useractions";
+import { razorpayId, razorpaySecret } from "@/actions/useractions";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
+const pacifico = Pacifico({ weight: "400", subsets: ["latin"] });
+const poppins = Poppins({ weight: "400", subsets: ["latin"] });
 
 const Page = () => {
   const pathname = usePathname();
@@ -37,31 +37,40 @@ const Page = () => {
         draggable: true,
         progress: undefined,
         theme: "dark",
-       
-        });
+      });
+
       setTimeout(() => {
         router.push("/Dashboard");
       }, 5000);
     } else {
-      alert("Please fill out all required fields.");
+      toast.error("Please fill out all required fields.", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
     }
   };
 
   useEffect(() => {
     if (pathname === "/PaymentDetails") {
-      router.forward(); // will prevent from coming back from Dashboard
+      router.replace("/Dashboard"); // Prevent navigation back to PaymentDetails
     }
-  }, [pathname]);
+  }, [pathname, router]);
 
   if (status === "loading") {
     return (
       <div
-        role="status  "
-        className="flex flex-row items-center justify-center h-screen "
+        role="status"
+        className="flex flex-col items-center justify-center h-screen"
       >
         <svg
           aria-hidden="true"
-          className="inline w-8 h-8 text-black animate-spin  fill-pink-500"
+          className="w-8 h-8 text-black animate-spin fill-pink-500"
           viewBox="0 0 100 101"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -75,8 +84,7 @@ const Page = () => {
             fill="currentFill"
           />
         </svg>
-        <span className="sr-only">Loading...</span>
-        <p className="text-2xl font-semibold ml-3 ">Loading...</p>
+        <p className="text-2xl font-semibold mt-3">Loading...</p>
       </div>
     );
   }
@@ -95,10 +103,10 @@ const Page = () => {
         pauseOnHover
         theme="dark"
       />
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between p-4">
         <a
           href="/PaymentDetails"
-          className="flex title-font font-medium items-center md:justify-start justify-center text-gray-900 cursor-pointer p-3"
+          className="flex items-center text-gray-900 cursor-pointer"
         >
           <Image
             src="/kC.png"
@@ -106,68 +114,63 @@ const Page = () => {
             width={70}
             height={70}
           />
-          <span
-            className={`ml-3 text-xl ${pacifico.className} cursor-pointer max-[425px]:hidden`}
-          >
+          <span className={`ml-3 text-xl ${pacifico.className} hidden md:block`}>
             KindnessCafe.com
           </span>
         </a>
       </div>
-      <div className="flex justify-center items-center text-3xl font-semibold">
-        Complete your page
+      <div className="flex justify-center items-center text-3xl font-semibold my-6">
+        Complete Your Page
       </div>
-      <div className="flex flex-row justify-center space-x-16 space-y-24 max-[537px]:space-y-12 max-[537px]:flex max-[537px]:flex-col pt-14 ">
-        <div className="flex max-[537px]:pt-5 max-[537px]:flex max-[537px]:justify-center">
-          <form className="max-w-sm mx-auto">
-            <div>
-              <label
-                htmlFor="razorpayId"
-                className="block mb-2 text-sm font-medium text-black"
-              >
-                Razor Pay ID
-              </label>
-              <input
-                type="text"
-                id="razorpayId"
-                name="razorpayId"
-                value={razorpayIds}
-                onChange={(e) => setRazorpayIds(e.target.value)}
-                required
-                placeholder="XXXXXXXXXXXXXX"
-                className="block w-full p-2.5 mb-6 text-gray-900 border border-gray-300 rounded-lg bg-gray-100 text-xs focus:bg-blue-100 font-semibold placeholder:font-normal"
-              />
-            </div>
-            <div>
-              <label
-                htmlFor="razorpaySecret"
-                className="block mb-2 text-sm font-medium text-black"
-              >
-                Razor Pay Secret
-              </label>
-              <input
-                type="text"
-                id="razorpaySecret"
-                name="razorpaySecret"
-                value={razorpaySecrets}
-                onChange={(e) => setRazorpaySecrets(e.target.value)}
-                required
-                placeholder="XXXXXXXXXXXXXX"
-                className="block w-full p-2.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-100 text-xs focus:bg-blue-100 font-semibold placeholder:font-normal"
-              />
-            </div>
-          </form>
-        </div>
-      </div>
-      <div className="flex justify-center items-center my-12">
-        <div
-          className={`${poppins.className} text-base bg-[#FFD1DC] px-5 py-2 rounded-3xl cursor-pointer hover:px-6 hover:py-3 transition-all duration-300 hover:-mx-1 hover:-my-1 hover:bg-[#feb2c4] max-[500px]:hover:px-6 max-[500px]:hover:py-3`}
+      <div className="flex flex-col items-center space-y-6">
+        <form className="max-w-sm w-full">
+          <div className="mb-6">
+            <label
+              htmlFor="razorpayId"
+              className="block mb-2 text-sm font-medium text-black"
+            >
+              Razor Pay ID
+            </label>
+            <input
+              type="text"
+              id="razorpayId"
+              name="razorpayId"
+              value={razorpayIds}
+              onChange={(e) => setRazorpayIds(e.target.value)}
+              required
+              placeholder="XXXXXXXXXXXXXX"
+              className="block w-full p-2.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-100 text-xs focus:bg-blue-100 font-semibold"
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="razorpaySecret"
+              className="block mb-2 text-sm font-medium text-black"
+            >
+              Razor Pay Secret
+            </label>
+            <input
+              type="text"
+              id="razorpaySecret"
+              name="razorpaySecret"
+              value={razorpaySecrets}
+              onChange={(e) => setRazorpaySecrets(e.target.value)}
+              required
+              placeholder="XXXXXXXXXXXXXX"
+              className="block w-full p-2.5 text-gray-900 border border-gray-300 rounded-lg bg-gray-100 text-xs focus:bg-blue-100 font-semibold"
+            />
+          </div>
+        </form>
+        <button
+          className={`${poppins.className} text-base bg-[#FFD1DC] px-5 py-2 rounded-3xl cursor-pointer hover:bg-[#feb2c4] transition-all duration-300`}
           onClick={handleClickNext}
         >
           Save
-        </div>
+        </button>
       </div>
     </div>
   );
 };
 
 export default Page;
+
