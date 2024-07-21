@@ -4,7 +4,7 @@ const nextConfig = {
         return [
           {
             source: '/api/:path*',
-            destination: 'https://your-vercel-domain.vercel.app/api/:path*',
+            destination: 'https://kindness-cafe.vercel.app/',
           },
         ];
       },
