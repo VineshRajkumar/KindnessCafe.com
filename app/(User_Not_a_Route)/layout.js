@@ -25,7 +25,7 @@ export default function RootLayout({ children, params }) {
   //   else{
   //     return a;
   //   }
-  // };
+  
   return (
     <html lang="en">
       <body className={inter.className}>
