@@ -9,7 +9,7 @@ import connectDb from "@/db/connectDb";
 // Config for Vercel function
 export const config = {
   runtime: 'nodejs',
-  maxDuration: 30 // Maximum duration in seconds
+  maxDuration: 20 // Maximum duration in seconds
 };
 
 export default NextAuth({
