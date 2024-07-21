@@ -1,67 +1,66 @@
-// In your NextAuth API route file, for example: /pages/api/auth/[...nextauth].js
-
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";
+import mongoose from "mongoose";
 import User from "@/models/User";
+import PaymentDetail from "@/models/PaymentDetail";
 import connectDb from "@/db/connectDb";
 
-// Config for Vercel function
-export const config = {
-  runtime: 'nodejs',
-  maxDuration: 20 // Maximum duration in seconds
-};
-
-export default NextAuth({
+export const maxDuration = 25; // This function can run for a maximum of 5 seconds
+export const dynamic = 'force-dynamic';
+ 
+export function GET(request) {
+  return new Response('Vercel', {
+    status: 200,
+  });
+}
+export const authoptions = NextAuth({
   providers: [
+    // OAuth authentication providers...
     GitHubProvider({
       clientId: process.env.GITHUB_ID,
       clientSecret: process.env.GITHUB_SECRET,
     }),
+
     GoogleProvider({
       clientId: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_SECRET,
     }),
   ],
-  secret: process.env.NEXTAUTH_SECRET, // Ensure this is set
 
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
-      try {
-        if (account.provider === "github" || account.provider === "google") {
-          await connectDb(); // Connect to MongoDB
-          const currentUser = await User.findOne({ email: user.email });
-
-          if (!currentUser) {
-            await User.create({
-              email: user.email,
-              username: user.email.split("@")[0],
-              followers: 0,
-              razorpayId: "",
-              razorpaySecret: "",
-            });
-          }
-
-          return true;
+      if(account.provider=="github"||account.provider=="google"){
+        //connect to mongodb
+        await connectDb() 
+        //check if user exists
+        const currentUser = await User.findOne({email:email})
+        console.log(currentUser)
+        if(!currentUser){
+          //create a new user if he doesnot exists
+          const newUser = await User.create({
+    
+            email: user.email,    
+            username:user.email.split("@")[0],
+            followers: 0,
+            razorpayId:"",
+            razorpaySecret:"",
+            
+          })
+          
+          
         }
-      } catch (error) {
-        console.error('Error during sign in callback:', error);
-        return false;
+        
+        
+        return true
       }
     },
-    async session({ session, user, token }) {
-      try {
-        await connectDb(); // Connect to MongoDB
-        const dbUser = await User.findOne({ email: session.user.email });
-        if (dbUser) {
-          session.user.name = dbUser.username;
-        }
-        return session;
-      } catch (error) {
-        console.error('Error during session callback:', error);
-        return session;
-      }
+    async session({ session, user, token }) { //checks existing user in database
+      const dbUser = await User.find({email:session.user.email})
+      session.user.name= dbUser.username
+      return session
     },
   },
 });
 
+export { authoptions as GET, authoptions as POST };
