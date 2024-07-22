@@ -7,17 +7,26 @@ import { useRouter } from "next/navigation";
 const pacifico = Pacifico({ weight: "400", subsets: ["latin"] });
 
 const Page = () => {
-  const { data: session,status } = useSession();
-  
+  const { data: session, status } = useSession();
+
   const router = useRouter();
 
   if (session) {
-    router.push('/Logged_In');
+    router.push("/Logged_In");
   }
+  const handlegivingalert = () => {
+    alert(
+      "⚠️ This feature is currently unavailable. We're working to fix it.\n🔒 Log in with Google or GitHub to access all features. \n Thank you for your patience!"
+     
+    );
+  };
 
   if (status === "loading") {
     return (
-      <div role="status  " className="flex flex-row items-center justify-center h-screen ">
+      <div
+        role="status  "
+        className="flex flex-row items-center justify-center h-screen "
+      >
         <svg
           aria-hidden="true"
           className="inline w-8 h-8 text-black animate-spin  fill-pink-500"
@@ -62,10 +71,10 @@ const Page = () => {
                   type="email"
                   placeholder="Email"
                   required
-                  
                 />
               </div>
               <button
+                onClick={handlegivingalert}
                 className="bg-gradient-to-r dark:text-gray-300 from-pink-500 to-purple-500 shadow-lg mt-6 p-2 text-white rounded-lg w-full hover:scale-105 hover:from-purple-500 hover:to-pink-500 transition duration-300 ease-in-out"
                 type="submit"
               >
@@ -75,40 +84,57 @@ const Page = () => {
             <div className="flex flex-col mt-4 items-center justify-center text-sm">
               <h3 className="dark:text-gray-300">
                 Don&apos;t have an account?
-                <a className="group text-blue-400 transition-all duration-100 ease-in-out" href="#">
-                  <span className="bg-left-bottom bg-gradient-to-r from-blue-400 to-blue-400 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out">
+                <a
+                  className="group text-blue-400 transition-all duration-100 ease-in-out"
+                  href="/Login"
+                >
+                  <span onClick={handlegivingalert} className="bg-left-bottom bg-gradient-to-r from-blue-400 to-blue-400 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out">
                     Sign Up
                   </span>
                 </a>
               </h3>
             </div>
-            <div id="third-party-auth" className="flex items-center justify-center mt-5 flex-wrap">
-              <button className="hover:scale-105 ease-in-out duration-300 shadow-lg p-2 rounded-lg m-1" onClick={() => signIn('google')}>
+            <div
+              id="third-party-auth"
+              className="flex items-center justify-center mt-5 flex-wrap"
+            >
+              <button
+                className="hover:scale-105 ease-in-out duration-300 shadow-lg p-2 rounded-lg m-1"
+                onClick={() => signIn("google")}
+              >
                 <img
                   className="max-w-[25px]"
                   src="https://ucarecdn.com/8f25a2ba-bdcf-4ff1-b596-088f330416ef/"
                   alt="Google"
                 />
               </button>
-              <button className="hover:scale-105 ease-in-out duration-300 shadow-lg p-2 rounded-lg m-1" onClick={() => signIn('github')}>
+              <button
+                className="hover:scale-105 ease-in-out duration-300 shadow-lg p-2 rounded-lg m-1"
+                onClick={() => signIn("github")}
+              >
                 <img
                   className="max-w-[25px] filter"
                   src="https://ucarecdn.com/be5b0ffd-85e8-4639-83a6-5162dfa15a16/"
                   alt="Github"
                 />
               </button>
-              
             </div>
             <div className="text-gray-500 flex text-center flex-col mt-4 items-center text-sm">
               <p className="cursor-default">
                 By signing in, you agree to our
-                <a className="group text-blue-400 transition-all duration-100 ease-in-out" href="#">
+                <a
+                  className="group text-blue-400 transition-all duration-100 ease-in-out"
+                  href="/Login"
+                >
                   <span className="cursor-pointer bg-left-bottom bg-gradient-to-r from-blue-400 to-blue-400 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out">
                     Terms
                   </span>
                 </a>
                 and
-                <a className="group text-blue-400 transition-all duration-100 ease-in-out" href="#">
+                <a
+                  className="group text-blue-400 transition-all duration-100 ease-in-out"
+                  href="/Login"
+                >
                   <span className="cursor-pointer bg-left-bottom bg-gradient-to-r from-blue-400 to-blue-400 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out">
                     Privacy Policy
                   </span>

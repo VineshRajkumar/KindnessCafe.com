@@ -499,7 +499,8 @@ const PaymentPage = ({ username }) => {
               <hr />
             </div>
           </div>
-          <div className="flex justify-evenly items-start -mt-32 mb-10 max-[726px]:-mt-28">
+          
+          <div className="flex justify-evenly items-start mb-10 ">  {/* -mt-32  max-[726px]:-mt-28 if problem happens add this here   */}
             <div className="flex   items-start gap-x-7 max-[726px]:flex max-[726px]:flex-col max-[726px]:items-center">
               <div className="flex items-center justify-between  ">
                 <div className="min-[726px]:hidden">

@@ -118,7 +118,7 @@ const DasboardPage = ({ username }) => {
   }
 
   const handlecopy = () => {
-    const format = `http://localhost:3000/${session.user.email.split("@")[0]}`;
+    const format = `https://kindness-cafe.vercel.app/${session.user.email.split("@")[0]}`;
     navigator.clipboard.writeText(format);
     setCopy(true);
     setTimeout(() => {
@@ -257,9 +257,9 @@ const DasboardPage = ({ username }) => {
                             Hi, {session.user.email.split("@")[0]}
                           </h1>
                           <p
-                            className={`text-sm ${poppins400.className} cursor-pointer max-[400px]:text-xs max-[352px]:text-[11px] `}
+                            className={`text-[11px] ${poppins400.className} cursor-pointer max-[400px]:text-xs max-[352px]:text-[11px] `}
                           >
-                            {`http://localhost:3000/${
+                            {`https://kindness-cafe.vercel.app/${
                               session.user.email.split("@")[0]
                             }`}
                           </p>
