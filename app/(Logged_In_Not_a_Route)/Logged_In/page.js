@@ -28,6 +28,9 @@ const Page = () => {
   const handleSavingFormToLocalStorage = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
+  const handleLogout = async () => {
+    await signOut({ callbackUrl: "/" });
+  };
 
   const SaveDetailsOnClick = () => {
     //form.Name.length >= 1 &&
@@ -136,7 +139,7 @@ const Page = () => {
         </a>
         <div className="flex justify-end p-3">
           <button
-            onClick={() => signOut("github")}
+            onClick={handleLogout}
             type="button"
             className="text-black bg-pink-100 border focus:outline-none hover:bg-pink-50 focus:ring-1 focus:ring-black font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2"
           >
