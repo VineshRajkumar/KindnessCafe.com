@@ -6,6 +6,7 @@ import User from "@/models/User";
 import PaymentDetail from "@/models/PaymentDetail";
 import connectDb from "@/db/connectDb";
 
+export const maxDuration = 300;
 
 export const authoptions = NextAuth({
   providers: [
